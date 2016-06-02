@@ -19,4 +19,16 @@ Chain-to loader for webpack that inlines all html and style's in angular2 compon
 
 # How to use: 
 * Install into node_modules: `npm install --save-dev angular2-template-loader`
-* 
+* Chain `angular2-template-loader` to your favorite typescript loader:
+
+```javascript
+  module: {
+    loaders: [
+      {
+        test: /\.ts$/,
+        loader: 'awesome-typescript-loader!angular2-template-loader',
+        exclude: [/\.(spec|e2e)\.ts$/]
+      }
+    ]
+  },
+```
