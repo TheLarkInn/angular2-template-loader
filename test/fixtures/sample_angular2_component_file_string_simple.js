@@ -1,0 +1,12 @@
+var simpleAngular2TestComponentFileStringSimple = `
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector: 'test-component',
+    templateUrl: './some/path/to/file.html',
+    styleUrls: ['./app/css/styles.css']
+  })
+  export class TestComponent {}
+`;
+
+module.exports = simpleAngular2TestComponentFileStringSimple;
