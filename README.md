@@ -1,6 +1,10 @@
 # angular2-template-loader
 Chain-to loader for webpack that inlines all html and style's in angular2 components. 
 
+[![Build Status](https://travis-ci.org/TheLarkInn/angular2-template-loader.svg?branch=master)](https://travis-ci.org/TheLarkInn/angular2-template-loader)
+[![taylor swift](https://img.shields.io/badge/secured%20by-taylor%20swift-brightgreen.svg)](https://twitter.com/SwiftOnSecurity)
+
+
 # Requirements: 
 * awesome-typescript-loader: _Why?_ Because awesome-typescript-loader has a feature called "useWebpackText" which allows for webpack to serve up chained files from loaders. Otherwise, there is no way to chain a loader to it. 
 * Configure `tsconfig.json`:
