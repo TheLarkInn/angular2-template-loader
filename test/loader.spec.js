@@ -23,6 +23,47 @@ describe("loader", function() {
 
   });
 
+  it("Should convert html and style file strings to require()s regardless of inner quotes", function(){
+
+    loader.call({}, fixtures.componentWithQuoteInUrls)
+      .should
+      .be
+      .eql(String.raw`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector: 'test-component',
+    template: require('./some/path/to/file\'.html'),
+    styles: [require('./app/css/\"styles\".css\\')]
+  })
+  export class TestComponent {}
+`
+      )
+
+  });
+
+  it("Should convert html and multiple style file strings to require()s", function(){
+
+    loader.call({}, fixtures.componentWithMultipleStyles)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector: 'test-component',
+    template: require('./some/path/to/file.html'),
+    styles: [
+      require('./app/css/styles.css'),
+      require('./app/css/more-styles.css')
+    ]
+  })
+  export class TestComponent {}
+`
+      )
+
+  });
+
   it("Should return original source if there are no matches", function() {
     loader.call({}, 'foo')
       .should
