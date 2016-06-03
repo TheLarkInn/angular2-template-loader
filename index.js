@@ -1,36 +1,21 @@
-module.exports = function(source) {
-  // using: regex, capture groups, and capture group variables.
-  var templateUrlRegex = new RegExp(/templateUrl:\s*['"](.*?)['"]/gm)
-  var stylesRegex = new RegExp(/styleUrls:(.*)/)
+// using: regex, capture groups, and capture group variables.
+var templateUrlRegex = /templateUrl:(.*)$/gm;
+var stylesRegex = /styleUrls:(\s*\[[^\]]*?\])/g;
+var stringRegex = /(['"])((?:[^\\]\\\1|.)*?)\1/g;
 
-  // replace: templateUrl: './path/to/template.html'
-  // with: template: require('./path/to/template.html')
-  function replaceHTMLTemplatePathWithRequire(source) {
-    if (templateUrlRegex.test(source)) {
-      var newSource = source.replace(templateUrlRegex, "template: require('$1')");
-      return newSource;
-    }
-
-    return source;
-  }
-
-  // replace: stylesUrl: ['./foo.css', "./baz.css", "./index.component.css"]
-  // with: styles: [require('./foo.css'), require("./baz.css"), require("./index.component.css")]
-  function replaceStylesheetPathWithRequire(source) {
-    var stylesMatch = source.match(stylesRegex);
-    var styles;
-
-    if ( stylesRegex.test(source) ) {
-      styles = stylesMatch[0]
-                .replace(/['"](.*?)['"]/g, "require('$1')")
-                .replace(/styleUrls/g, 'styles');
-
-      var newSource = source.replace(stylesRegex, styles);
-      return newSource;
-    }
-
-    return source;
-  }
-
-  return replaceStylesheetPathWithRequire(replaceHTMLTemplatePathWithRequire(source));
+function replaceStringsWithRequires(string) {
+  return string.replace(stringRegex, "require('$2')");
 }
+
+module.exports = function(source) {
+  return source.replace(templateUrlRegex, function (match, url) {
+                 // replace: templateUrl: './path/to/template.html'
+                 // with: template: require('./path/to/template.html')
+                 return "template:" + replaceStringsWithRequires(url);
+               })
+               .replace(stylesRegex, function (match, urls) {
+                 // replace: stylesUrl: ['./foo.css', "./baz.css", "./index.component.css"]
+                 // with: styles: [require('./foo.css'), require("./baz.css"), require("./index.component.css")]
+                 return "styles:" + replaceStringsWithRequires(urls);
+               });
+};
