@@ -78,5 +78,22 @@ describe("loader", function() {
       .eql(`template: require('./index/app.html')`);
   });
 
+  it("Should handle the absense of proper relative path notation", function() {
+    loader.call({}, fixtures.componentWithoutRelPeriodSlash)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector: 'test-component',
+    template: require('./file.html'),
+    styles: [require('./styles.css')]
+  })
+  export class TestComponent {}
+`
+      );
+  });
+
 
 });
