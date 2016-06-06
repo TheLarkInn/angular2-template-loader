@@ -1,6 +1,6 @@
 {
   "name": "angular2-template-loader",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Angular2 webpack loader that inlines your angular2 templates and stylesheets into angular components.  ",
   "main": "index.js",
   "scripts": {
