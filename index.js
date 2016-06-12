@@ -12,8 +12,11 @@ function replaceStringsWithRequires(string) {
   });
 }
 
-module.exports = function(source) {
-  return source.replace(templateUrlRegex, function (match, url) {
+module.exports = function(source, sourcemap) {
+  // Not cacheable during unit tests;
+  this.cacheable && this.cacheable();
+
+  var newSource = source.replace(templateUrlRegex, function (match, url) {
                  // replace: templateUrl: './path/to/template.html'
                  // with: template: require('./path/to/template.html')
                  return "template:" + replaceStringsWithRequires(url);
@@ -23,4 +26,11 @@ module.exports = function(source) {
                  // with: styles: [require('./foo.css'), require("./baz.css"), require("./index.component.css")]
                  return "styles:" + replaceStringsWithRequires(urls);
                });
+
+  // Support for tests
+  if (this.callback) {
+    this.callback(null, newSource, sourcemap)
+  } else {
+    return newSource;
+  }
 };
