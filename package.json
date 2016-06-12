@@ -4,7 +4,8 @@
   "description": "Angular2 webpack loader that inlines your angular2 templates and stylesheets into angular components.  ",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "coverage": "istanbul cover _mocha -- -R spec"
   },
   "repository": {
     "type": "git",
@@ -24,10 +25,12 @@
   },
   "homepage": "https://github.com/TheLarkInn/angular2-template-loader#readme",
   "devDependencies": {
+    "istanbul": "^0.4.3",
     "mocha": "^2.5.3",
     "should": "^9.0.0"
   },
   "dependencies": {
+    "codecov": "^1.0.1",
     "loader-utils": "^0.2.15"
   }
 }
