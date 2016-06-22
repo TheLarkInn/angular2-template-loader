@@ -32,7 +32,7 @@ Chain-to loader for webpack that inlines all html and style's in angular2 compon
     loaders: [
       {
         test: /\.ts$/,
-        loaders: ['awesome-typescript-loader, angular2-template-loader'],
+        loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
         exclude: [/\.(spec|e2e)\.ts$/]
       }
     ]
