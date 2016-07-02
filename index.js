@@ -1,6 +1,6 @@
 // using: regex, capture groups, and capture group variables.
-var templateUrlRegex = /templateUrl:(.*)$/gm;
-var stylesRegex = /styleUrls:(\s*\[[^\]]*?\])/g;
+var templateUrlRegex = /templateUrl *:(.*)$/gm;
+var stylesRegex = /styleUrls *:(\s*\[[^\]]*?\])/g;
 var stringRegex = /(['"])((?:[^\\]\\\1|.)*?)\1/g;
 
 function replaceStringsWithRequires(string) {
