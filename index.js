@@ -2,6 +2,7 @@
 var templateUrlRegex = /templateUrl *:(.*)$/gm;
 var stylesRegex = /styleUrls *:(\s*\[[^\]]*?\])/g;
 var stringRegex = /(['"])((?:[^\\]\\\1|.)*?)\1/g;
+var requireRegex = /(require\(.+?\))/g;
 
 function replaceStringsWithRequires(string) {
   return string.replace(stringRegex, function (match, quote, url) {
@@ -10,6 +11,12 @@ function replaceStringsWithRequires(string) {
     }
     return "require('" + url + "')";
   });
+}
+
+function addToString(string){
+  return string.replace(requireRegex, function(match) {
+    return match + ".toString()";
+  })
 }
 
 module.exports = function(source, sourcemap) {
@@ -24,7 +31,7 @@ module.exports = function(source, sourcemap) {
                .replace(stylesRegex, function (match, urls) {
                  // replace: stylesUrl: ['./foo.css', "./baz.css", "./index.component.css"]
                  // with: styles: [require('./foo.css'), require("./baz.css"), require("./index.component.css")]
-                 return "styles:" + replaceStringsWithRequires(urls);
+                 return "styles:" + addToString(replaceStringsWithRequires(urls));
                });
 
   // Support for tests

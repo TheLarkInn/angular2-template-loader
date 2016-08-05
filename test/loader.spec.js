@@ -15,7 +15,7 @@ describe("loader", function() {
   @Component({
     selector: 'test-component',
     template: require('./some/path/to/file.html'),
-    styles: [require('./app/css/styles.css')]
+    styles: [require('./app/css/styles.css').toString()]
   })
   export class TestComponent {}
 `
@@ -34,7 +34,7 @@ describe("loader", function() {
   @Component({
     selector: 'test-component',
     template: require('./some/path/to/file\'.html'),
-    styles: [require('./app/css/\"styles\".css\\')]
+    styles: [require('./app/css/\"styles\".css\\').toString()]
   })
   export class TestComponent {}
 `
@@ -54,8 +54,8 @@ describe("loader", function() {
     selector: 'test-component',
     template: require('./some/path/to/file.html'),
     styles: [
-      require('./app/css/styles.css'),
-      require('./app/css/more-styles.css')
+      require('./app/css/styles.css').toString(),
+      require('./app/css/more-styles.css').toString()
     ]
   })
   export class TestComponent {}
@@ -88,7 +88,7 @@ describe("loader", function() {
   @Component({
     selector: 'test-component',
     template: require('./file.html'),
-    styles: [require('./styles.css')]
+    styles: [require('./styles.css').toString()]
   })
   export class TestComponent {}
 `
@@ -106,7 +106,7 @@ describe("loader", function() {
   @Component({
     selector : 'test-component',
     template: require('./some/path/to/file.html'),
-    styles: [require('./app/css/styles.css')]
+    styles: [require('./app/css/styles.css').toString()]
   })
   export class TestComponent {}
 `
