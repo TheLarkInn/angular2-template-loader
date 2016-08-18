@@ -11,6 +11,7 @@ var query = loaderUtils.parseQuery(this.query);
 
 module.exports = function(source, sourcemap) {
   var loader = this;
+  var callback = loader.async();
   var rootPath = query.root || this.options.resolve && this.options.resolve.root;
   var TOKEN_INDEX = 0;
   var finalCallback = false;
@@ -23,74 +24,69 @@ module.exports = function(source, sourcemap) {
   // Not cacheable during unit tests;
   loader.cacheable && loader.cacheable();
 
-  // Tokenize whole template
-  var newSource = source
-    .replace(templateUrlRegex, function (match, url) {
-      // replace: templateUrl: './path/to/template.html'
-      // with: template: require('./path/to/template.html')
-      debugger;
-      return "template:" + tokenizeUrl(url);
-    })
-    .replace(stylesRegex, function (match, urls) {
-      // replace: stylesUrl: ['./foo.css', "./baz.css", "./index.component.css"]
-      // with: styles: [require('./foo.css'), require("./baz.css"), require("./index.component.css")]
-      debugger;
-      return "styles:" + tokenizeUrl(urls);
-    });
 
-  function replaceTokensWithResolvedModuleRequest(moduleRequest, moduleRequestToken) {
-    return new Promise( function(resolveFn, rejectFn) {
-      debugger;
-      loader.resolve(loader.context, moduleRequest, function(error, filename) {
-        if (error) {
-          debugger;
-          loader.callback(error);
-          return;
-        }
+  if ( !callback && stylesRegex.test(source) || templateUrlRegex.test(source) ) {
 
-        // Mark module as a dependency for individual caching and dep. tracing
-        loader.dependency && loader.dependency(path.normalize(filename));
-        // async
-         loader.loadModule(filename, function(error, data) {
+    // Tokenize whole template
+    var newSource = source
+      .replace(templateUrlRegex, function (match, url) {
+        // replace: templateUrl: './path/to/template.html'
+        // with: template: require('./path/to/template.html')
+        return "template:" + tokenizeUrl(url);
+      })
+      .replace(stylesRegex, function (match, urls) {
+        // replace: stylesUrl: ['./foo.css', "./baz.css", "./index.component.css"]
+        // with: styles: [require('./foo.css'), require("./baz.css"), require("./index.component.css")]
+        return "styles:" + tokenizeUrl(urls);
+      });
+
+    function replaceTokensWithResolvedModuleRequest(moduleRequest, moduleRequestToken) {
+      return new Promise( function(resolveFn, rejectFn) {
+        loader.resolve(loader.context, moduleRequest, function(error, filename) {
           if (error) {
-            debugger;
-            loader.callback(error);
+            rejectFn(error);
             return;
           }
 
-          // Replace the tokenizedTemplate with real resolved data;
-          newSource.replace(moduleRequestToken, data);
-          debugger;
-          resolveFn({moduleRequestToken, data})
+          // Mark module as a dependency for individual caching and dep. tracing
+          loader.dependency && loader.dependency(path.normalize(moduleRequest));
+
+          loader.loadModule(filename, function(error, data, sourceMaps, nmf) {
+            var inlinedTemplateString = data
+              .replace("module.exports = ", "");
+            debugger;
+
+            newSource = newSource.replace(moduleRequestToken, inlinedTemplateString);
+
+            resolveFn({moduleRequestToken, inlinedTemplateString});
+          })
         });
       });
+    }
+
+    function tokenizeUrl(string) {
+      return string.replace(stringRegex, function (match, quote, url) {
+        token = replaceToken()
+
+        // Sanitize url for canonical require format. IE: './path/to/file'
+        urlsToBeResolved[token] = loaderUtils.urlToRequest(url, rootPath);
+        TOKEN_INDEX += 1;
+
+        return token;
+      });
+    }
+
+    Promise.all(
+      Object.keys(urlsToBeResolved).map(function(key, index) {
+        return replaceTokensWithResolvedModuleRequest(urlsToBeResolved[key], key);
+      })
+    )
+    .then(function(resolveDataArray) {
+      callback(null, newSource, sourcemap);
     });
+  } else {
+    callback(null, source, sourcemap);
   }
-
-  function tokenizeUrl(string) {
-    return string.replace(stringRegex, function (match, quote, url) {
-      // Sanitize url for canonical require format. IE: './path/to/file'
-      if (url.charAt(0) !== ".") {
-        url = "./" + url;
-      }
-
-      token = replaceToken()
-
-      urlsToBeResolved[token] = loaderUtils.urlToRequest(url, rootPath);
-      TOKEN_INDEX += 1;
-
-      return token;
-    });
-  }
-
-  Promise.all(
-    Object.keys(urlsToBeResolved).map(function(key, index) {
-      debugger;
-      return replaceTokensWithResolvedModuleRequest(urlsToBeResolved[key], key);
-    })
-  ).then(function(resolveDataArray) {
-    loader.callback && loader.callback(null, newSource, sourcemap);
-  })
 };
 
 
