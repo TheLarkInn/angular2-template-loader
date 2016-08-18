@@ -30,6 +30,7 @@
     "should": "^9.0.0"
   },
   "dependencies": {
+    "bluebird": "^3.4.1",
     "codecov": "^1.0.1",
     "loader-utils": "^0.2.15"
   }
