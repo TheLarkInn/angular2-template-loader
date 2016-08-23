@@ -7,8 +7,8 @@
     "test": "mocha --reporter spec",
     "coverage": "istanbul cover _mocha -- -R spec",
     "preversion": "npm test",
-    "version": "git add -A dist",
-    "postversion": "git push && git push --tags"
+    "version": "git add -A",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
