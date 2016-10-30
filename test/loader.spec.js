@@ -71,11 +71,18 @@ describe("loader", function() {
       .eql('foo');
   });
 
-  it("Should convert partial string match requires", function() {
+  it("Should not convert templateUrl string beyond component metadata", function() {
     loader.call({}, `templateUrl: './index/app.html'`)
       .should
       .be
-      .eql(`template: require('./index/app.html')`);
+      .eql(`templateUrl: './index/app.html'`);
+  });
+
+  it("Should not convert styleUrls string outside component metadata", function() {
+    loader.call({}, `styleUrls: [ './index/app.css' ]`)
+      .should
+      .be
+      .eql(`styleUrls: [ './index/app.css' ]`);
   });
 
   it("Should handle the absense of proper relative path notation", function() {
