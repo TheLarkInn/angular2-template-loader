@@ -17,26 +17,18 @@ function replaceStringsWithRequires(string, config) {
   });
 }
 
-/**
- * Loads loader config. Reads config from both query string
- * and new webpack2 loader options. Query takes precedence.
- */
-function getConfig(ctx) {
-
-  var query = ctx.query ? utils.parseQuery(ctx.query) : {};
-  var options = ctx.options ? ctx.options['angular2Template'] : {};
-
-  delete query.config;
-
-  return assign({}, options, query);
-}
 
 module.exports = function(source, sourcemap) {
   // Not cacheable during unit tests;
   this.cacheable && this.cacheable();
 
+  // getLoaderConfig expects options to be always set
+  if(!this.options){
+    this.options = {}
+  }
+
   // Reads config
-  var config = getConfig(this);
+  var config = utils.getLoaderConfig(this, 'angular2Template');
 
   var newSource = source.replace(templateUrlRegex, function (match, url) {
                  // replace: templateUrl: './path/to/template.html'
