@@ -34,6 +34,7 @@
     "should": "^9.0.0"
   },
   "dependencies": {
-    "loader-utils": "^0.2.15"
+    "loader-utils": "^0.2.15",
+    "object-assign": "^4.1.0"
   }
 }

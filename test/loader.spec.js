@@ -114,4 +114,119 @@ describe("loader", function() {
 
   });
 
+  it("Should convert html and style file strings adding type assertion when typeAssertion option is true", function() {
+    var ctx = {
+      options: {
+        angular2Template : {
+          typeAssertion : true
+        }
+      }
+    };
+    loader.call(ctx, fixtures.componentWithSpacing)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector : 'test-component',
+    template: <string>require('./some/path/to/file.html'),
+    styles: [<string>require('./app/css/styles.css')]
+  })
+  export class TestComponent {}
+`)
+
+  });
+
+  it("Should convert html and style file strings adding type assertion when typeAssertion query param is true", function() {
+    var ctx = {
+      query: '?typeAssertion=true'
+    };
+    loader.call(ctx, fixtures.componentWithSpacing)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector : 'test-component',
+    template: <string>require('./some/path/to/file.html'),
+    styles: [<string>require('./app/css/styles.css')]
+  })
+  export class TestComponent {}
+`)
+
+  });
+
+  it("Should convert html and style file strings adding type assertion and query should take precedence", function() {
+    var ctx = {
+      query: '?typeAssertion=true',
+      options: {
+        angular2Template : {
+          typeAssertion : false
+        }
+      }
+    };
+    loader.call(ctx, fixtures.componentWithSpacing)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector : 'test-component',
+    template: <string>require('./some/path/to/file.html'),
+    styles: [<string>require('./app/css/styles.css')]
+  })
+  export class TestComponent {}
+`)
+
+  });
+
+
+  it("Should convert html and style file strings NOT adding type assertion when typeAssertion option is false", function() {
+    var ctx = {
+      options: {
+        angular2Template : {
+          typeAssertion : false
+        }
+      }
+    };
+    loader.call(ctx, fixtures.componentWithSpacing)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector : 'test-component',
+    template: require('./some/path/to/file.html'),
+    styles: [require('./app/css/styles.css')]
+  })
+  export class TestComponent {}
+`)
+
+  });
+
+  it("Should convert html and style file strings NOT adding type assertion when typeAssertion query param is false", function() {
+    var ctx = {
+      query: '?typeAssertion=false'
+    };
+    loader.call(ctx, fixtures.componentWithSpacing)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector : 'test-component',
+    template: require('./some/path/to/file.html'),
+    styles: [require('./app/css/styles.css')]
+  })
+  export class TestComponent {}
+`)
+
+  });
+
+
 });
