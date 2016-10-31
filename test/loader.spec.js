@@ -114,7 +114,7 @@ describe("loader", function() {
 
   });
 
-  it("Should convert html and style file strings adding type assetion when typeAssetion option is true", function() {
+  it("Should convert html and style file strings adding type assertion when typeAssertion option is true", function() {
     var ctx = {
       options: {
         angular2Template : {
@@ -138,7 +138,7 @@ describe("loader", function() {
 
   });
 
-  it("Should convert html and style file strings adding type assetion when typeAssetion query param is true", function() {
+  it("Should convert html and style file strings adding type assertion when typeAssertion query param is true", function() {
     var ctx = {
       query: '?typeAssertion=true'
     };
@@ -158,7 +158,7 @@ describe("loader", function() {
 
   });
 
-  it("Should convert html and style file strings adding type assetion and query should take precedence", function() {
+  it("Should convert html and style file strings adding type assertion and query should take precedence", function() {
     var ctx = {
       query: '?typeAssertion=true',
       options: {
@@ -184,7 +184,7 @@ describe("loader", function() {
   });
 
 
-  it("Should convert html and style file strings NOT adding type assetion when typeAssetion option is false", function() {
+  it("Should convert html and style file strings NOT adding type assertion when typeAssertion option is false", function() {
     var ctx = {
       options: {
         angular2Template : {
@@ -208,7 +208,7 @@ describe("loader", function() {
 
   });
 
-  it("Should convert html and style file strings NOT adding type assetion when typeAssetion query param is false", function() {
+  it("Should convert html and style file strings NOT adding type assertion when typeAssertion query param is false", function() {
     var ctx = {
       query: '?typeAssertion=false'
     };
