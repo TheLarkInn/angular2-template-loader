@@ -114,4 +114,23 @@ describe("loader", function() {
 
   });
 
+  it("Should keep templateUrl when asked for", function () {
+
+    loader.call({query: '?keepUrl=true'}, fixtures.componentWithSpacing)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector : 'test-component',
+    templateUrl: require('./some/path/to/file.html'),
+    styleUrls: [require('./app/css/styles.css')]
+  })
+  export class TestComponent {}
+`
+      )
+
+  });
+
 });
