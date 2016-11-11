@@ -17,11 +17,18 @@ function replaceStringsWithRequires(string) {
 
 module.exports = function(source, sourcemap) {
 
+  var config = {};
   var query = loaderUtils.parseQuery(this.query);
   var styleProperty = 'styles';
   var templateProperty = 'template';
 
-  if (query.keepUrl === true) {
+  if (this.options != null) {
+    Object.assign(config, this.options['angular2TemplateLoader']);
+  }
+
+  Object.assign(config, query);
+
+  if (config.keepUrl === true) {
       styleProperty = 'styleUrls';
       templateProperty = 'templateUrl';
   }
