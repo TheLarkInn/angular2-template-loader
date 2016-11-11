@@ -129,7 +129,34 @@ describe("loader", function() {
   })
   export class TestComponent {}
 `
-      )
+      );
+
+  });
+
+  it("Should keep templateUrl when asked using options", function () {
+
+    var self = {};
+
+    self.options = {
+      angular2TemplateLoader: {
+        keepUrl: true
+      }
+    };
+
+    loader.call(self, fixtures.componentWithSpacing)
+        .should
+        .be
+        .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector : 'test-component',
+    templateUrl: require('./some/path/to/file.html'),
+    styleUrls: [require('./app/css/styles.css')]
+  })
+  export class TestComponent {}
+`
+        );
 
   });
 
