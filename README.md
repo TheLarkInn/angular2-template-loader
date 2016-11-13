@@ -44,12 +44,19 @@ module: {
   loaders: [
     {
       test: /\.ts$/,
-      loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+      loaders: ['awesome-typescript-loader', 'angular2-template-loader?keepUrl=true'],
       exclude: [/\.(spec|e2e)\.ts$/]
     },
+    /* Embed files. */
     { 
       test: /\.(html|css)$/, 
-      loader: 'raw-loader'
+      loader: 'raw-loader',
+      exclude: /\.async\.(html|css)$/
+    },
+    /* Async loading. */
+    {
+      test: /\.async\.(html|css)$/, 
+      loaders: ['file?name=[name].[hash].[ext]', 'extract']
     }
   ]
 }
@@ -74,5 +81,6 @@ Here is an example markup (`tsconfig.json`)
 
 ### How does it work
 The `angular2-template-loader` searches for `templateUrl` and `styleUrls` declarations inside of the Angular 2 Component metadata and replaces the paths with the corresponding `require` statement.
+If `keepUrl=true` is added to the loader's query string, `templateUrl` and `styleUrls` will not be replaced by `template` and `style` respectively so you can use a loader like `file-loader`.
 
 The generated `require` statements will be handled by the given loader for `.html` and `.js` files.
