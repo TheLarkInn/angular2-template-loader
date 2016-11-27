@@ -11,7 +11,7 @@ function replaceStringsWithRequires(string) {
     if (url.charAt(0) !== ".") {
       url = "./" + url;
     }
-    return "require('" + url + "')";
+    return "typeof require('" + url + "') === 'string' ? require('" + url + "') : ''";
   });
 }
 
