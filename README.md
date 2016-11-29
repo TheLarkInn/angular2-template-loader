@@ -9,7 +9,6 @@ Chain-to loader for webpack that inlines all html and style's in angular2 compon
 - [Installation](#installation)
 - [Requirements](#requirements)
 - [Example markup](#example-markup)
-- [Awesome Typescript Loader](#awesome-typescript-loader)
 - [How does it work](#how-does-it-work)
 
 ### Installation
@@ -59,23 +58,6 @@ module: {
       loaders: ['file?name=[name].[hash].[ext]', 'extract']
     }
   ]
-}
-```
-
-### Awesome Typescript Loader
-When using `awesome-typescript-loader` to load your typescript files you have to set the `useWebpackText` property to `true`.
-Otherwise the `angular2-template-loader` is not able to chain into it.
-
-Here is an example markup (`tsconfig.json`)
-```js
-{
-  "compilerOptions": {
-    ...
-  },
-  "awesomeTypescriptLoaderOptions": {
-    ...
-    "useWebpackText": true // Allows other loaders to be chained to awesome-typescript-loader.
-  },
 }
 ```
 
