@@ -72,10 +72,10 @@ describe("loader", function() {
   });
 
   it("Should convert partial string match requires", function() {
-    loader.call({}, `templateUrl: './index/app.html'`)
+    loader.call({}, `{templateUrl: './index/app.html'}`)
       .should
       .be
-      .eql(`template: require('./index/app.html')`);
+      .eql(`{template: require('./index/app.html')}`);
   });
 
   it("Should handle the absense of proper relative path notation", function() {
@@ -157,6 +157,21 @@ describe("loader", function() {
   export class TestComponent {}
 `
         );
+
+  });
+
+  it("Should convert html and style file strings to require()s in a single line component decorator", function() {
+
+    loader.call({}, fixtures.componentWithSingleLineDecorator)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({selector: 'test-component', template: require('./file.html'), styles: [require('./styles.css')]})
+  export class TestComponent {};
+`
+      );
 
   });
 
