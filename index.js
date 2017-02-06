@@ -2,9 +2,9 @@
 var loaderUtils = require("loader-utils");
 
 // using: regex, capture groups, and capture group variables.
-var templateUrlRegex = /templateUrl\s*:(\s*['"`](.*?)['"`]([,}\n]))/gm;
-var stylesRegex = /styleUrls *:(\s*\[[^\]]*?\])/g;
-var stringRegex = /(['"])((?:[^\\]\\\1|.)*?)\1/g;
+var templateUrlRegex = /templateUrl\s*:\s*(['"`](.*?)['"`]([,}\n]))/igm;
+var stylesRegex = /styleUrls\s*:\s*(\[[^\]]*?\])/ig;
+var stringRegex = /(['"])((?:[^\\]\\\1|.)*?)\1/ig;
 
 function replaceStringsWithRequires(string) {
   return string.replace(stringRegex, function (match, quote, url) {
@@ -41,14 +41,14 @@ module.exports = function(source, sourcemap) {
                  // with: template: require('./path/to/template.html')
                  // or: templateUrl: require('./path/to/template.html')
                  // if `keepUrl` query parameter is set to true.
-                 return templateProperty + ":" + replaceStringsWithRequires(url);
+                 return templateProperty + ": " + replaceStringsWithRequires(url);
                })
                .replace(stylesRegex, function (match, urls) {
                  // replace: stylesUrl: ['./foo.css', "./baz.css", "./index.component.css"]
                  // with: styles: [require('./foo.css'), require("./baz.css"), require("./index.component.css")]
                  // or: styleUrls: [require('./foo.css'), require("./baz.css"), require("./index.component.css")]
                  // if `keepUrl` query parameter is set to true.
-                 return styleProperty + ":" + replaceStringsWithRequires(urls);
+                 return styleProperty + ": " + replaceStringsWithRequires(urls);
                });
 
   // Support for tests
