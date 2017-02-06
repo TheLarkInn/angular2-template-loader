@@ -2,9 +2,9 @@
 var loaderUtils = require("loader-utils");
 
 // using: regex, capture groups, and capture group variables.
-var templateUrlRegex = /templateUrl\s*:(\s*['"`](.*?)['"`]([,}\n]))/gm;
-var stylesRegex = /styleUrls *:(\s*\[[^\]]*?\])/g;
-var stringRegex = /(['"])((?:[^\\]\\\1|.)*?)\1/g;
+var templateUrlRegex = /templateUrl\s*:\s*(['"`](.*?)['"`]([,}\n]))/igm;
+var stylesRegex = /styleUrls\s*:\s*(\[[^\]]*?\])/ig;
+var stringRegex = /(['"])((?:[^\\]\\\1|.)*?)\1/ig;
 
 function replaceStringsWithRequires(string) {
   return string.replace(stringRegex, function (match, quote, url) {
