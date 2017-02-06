@@ -175,4 +175,20 @@ describe("loader", function() {
 
   });
 
+  it("Should convert html file string to require()s in a component decorator with templateUrl as last decorator field", function() {
+    loader.call({}, fixtures.componentWithTemplateUrlAsLastDecoratorField)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector: 'test-component',
+    template: require('./file.html')
+  })
+  export class TestComponent {}
+`
+      );
+  });
+
 });
