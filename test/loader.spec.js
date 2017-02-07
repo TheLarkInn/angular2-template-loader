@@ -175,4 +175,23 @@ describe("loader", function() {
 
   });
 
+  it("Should convert html and style file strings to require()s if line is ending by space character", function() {
+
+    loader.call({}, fixtures.componentWithTemplateUrlEndingBySpace)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector: 'test-component',
+    template: require('./some/path/to/file.html'), 
+    styles: [require('./app/css/styles.css')] 
+  })
+  export class TestComponent {}
+`
+      )
+
+  });
+
 });
