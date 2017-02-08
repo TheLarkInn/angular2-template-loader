@@ -8,7 +8,8 @@
     "coverage": "istanbul cover _mocha -- -R spec",
     "preversion": "npm test",
     "version": "git add -A",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "release:patch": "npm version patch && git push && git push --tags && npm publish"
   },
   "repository": {
     "type": "git",
