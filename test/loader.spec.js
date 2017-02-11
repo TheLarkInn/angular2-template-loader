@@ -6,7 +6,7 @@ var fixtures = require("./fixtures");
 describe("loader", function() {
   it("Should convert html and style file strings to require()s", function(){
 
-    loader.call({}, fixtures.simpleAngular2TestComponentFileStringSimple)
+    loader.call({}, fixtures.simpleAngularTestComponentFileStringSimple)
       .should
       .be
       .eql(`
