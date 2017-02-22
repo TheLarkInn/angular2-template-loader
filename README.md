@@ -66,7 +66,7 @@ module: {
 export class AwesomeButtonComponent { }
 ```
 
-#### After (before it is bundled into your webpack application)
+#### After (before it is bundled into your webpack'd application)
 ```js
 @Component({
   selector: 'awesome-button',
