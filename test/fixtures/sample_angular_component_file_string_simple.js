@@ -1,4 +1,4 @@
-var simpleAngular2TestComponentFileStringSimple = `
+var simpleAngularTestComponentFileStringSimple = `
   import {Component} from '@angular/core';
 
   @Component({
@@ -9,4 +9,4 @@ var simpleAngular2TestComponentFileStringSimple = `
   export class TestComponent {}
 `;
 
-module.exports = simpleAngular2TestComponentFileStringSimple;
+module.exports = simpleAngularTestComponentFileStringSimple;

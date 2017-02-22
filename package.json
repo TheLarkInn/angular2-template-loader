@@ -1,7 +1,7 @@
 {
   "name": "angular2-template-loader",
   "version": "0.6.2",
-  "description": "Angular2 webpack loader that inlines your angular2 templates and stylesheets into angular components.  ",
+  "description": "Angular webpack loader that inlines your angular templates and stylesheets into angular components.  ",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/TheLarkInn/angular2-template-loader.git"
   },
   "keywords": [
-    "angular2",
+    "angular",
     "webpack",
     "angularjs",
     "loader",
