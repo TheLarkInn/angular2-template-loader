@@ -56,7 +56,17 @@ module: {
 }
 ```
 
-#### Angular
+#### Before
+```js
+@Component({
+  selector: 'awesome-button',
+  template: 'button.template.html',
+  styles: ['button.style.css']
+})
+export class AwesomeButtonComponent { }
+```
+
+#### After (before it is bundled into your webpack application)
 ```js
 @Component({
   selector: 'awesome-button',
