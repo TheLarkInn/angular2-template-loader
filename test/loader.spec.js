@@ -78,7 +78,7 @@ describe("loader", function() {
       .eql(`{template: require('./index/app.html')}`);
   });
 
-  it("Should handle the absense of proper relative path notation", function() {
+  it("Shouldn't handle the absense of proper relative path notation", function() {
     loader.call({}, fixtures.componentWithoutRelPeriodSlash)
       .should
       .be
@@ -87,8 +87,8 @@ describe("loader", function() {
 
   @Component({
     selector: 'test-component',
-    template: require('./file.html'),
-    styles: [require('./styles.css')]
+    template: require('file.html'),
+    styles: [require('styles.css')]
   })
   export class TestComponent {}
 `
