@@ -56,18 +56,18 @@ module: {
 }
 ```
 
-#### Before
-```js
+#### Before loader (your original code)
+```ts
 @Component({
   selector: 'awesome-button',
-  template: 'button.template.html',
-  styles: ['button.style.css']
+  templateUrl: 'button.template.html',
+  styleUrls: ['button.style.css']
 })
 export class AwesomeButtonComponent { }
 ```
 
-#### After (before it is bundled into your webpack'd application)
-```js
+#### After loader (ready for next loader, e.g. for typescript)
+```ts
 @Component({
   selector: 'awesome-button',
   template: require('./button.template.html'),
@@ -78,7 +78,8 @@ export class AwesomeButtonComponent { }
 
 ### How does it work
 The `angular2-template-loader` searches for `templateUrl` and `styleUrls` declarations inside of the Angular 2 Component metadata and replaces the paths with the corresponding `require` statement.
-If `keepUrl=true` is added to the loader's query string, `templateUrl` and `styleUrls` will not be replaced by `template` and `style` respectively so you can use a loader like `file-loader`.
+
+When `keepUrl=true` is added to the loader's query string, `templateUrl` and `styleUrls` will not be replaced by `template` and `style` respectively so you can use a loader like `file-loader`.
 
 The generated `require` statements will be handled by the given loader for `.html` and `.js` files.
 
