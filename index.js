@@ -2,7 +2,7 @@
 var loaderUtils = require("loader-utils");
 
 // using: regex, capture groups, and capture group variables.
-var templateUrlRegex = /templateUrl\s*:(\s*['"`](.*?)['"`]\s*([,}]))/gm;
+var templateUrlRegex = /templateUrl\s*:(\s*['"`](.*?)['"`]\s*([,}])?)/gm;
 var stylesRegex = /styleUrls *:(\s*\[[^\]]*?\])/g;
 var stringRegex = /(['`"])((?:[^\\]\\\1|.)*?)\1/g;
 
