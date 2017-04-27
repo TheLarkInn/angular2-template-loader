@@ -3,8 +3,7 @@ var componentWithCommentAfterTemplateUrl = `
 
   @Component({
     selector: 'test-component',
-    templateUrl: './some/path/to/file.html', /*my awesome template*/
-    styleUrls: ['./app/css/styles.css']
+    templateUrl: './some/path/to/file.html' /*my awesome template*/
   })
   export class TestComponent {}
 `;

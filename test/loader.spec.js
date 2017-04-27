@@ -222,8 +222,7 @@ describe("loader", function() {
 
   @Component({
     selector: 'test-component',
-    template: require('./some/path/to/file.html'), /*my awesome template*/
-    styles: [require('./app/css/styles.css')]
+    template: require('./some/path/to/file.html') /*my awesome template*/
   })
   export class TestComponent {}
 `
