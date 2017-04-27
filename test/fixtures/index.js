@@ -6,6 +6,7 @@ var componentWithSpacing = require('./component_with_spacing.js');
 var componentWithSingleLineDecorator = require('./component_with_single_line_decorator.js');
 var componentWithTemplateUrlEndingBySpace = require('./component_with_template_url_ending_by_space.js');
 var componentWithTemplateUrlLast = require('./component_with_template_url_last.js');
+var componentWithCommentAfterTemplateUrl = require('./component_with_comment_after_template_url');
 
 exports.simpleAngularTestComponentFileStringSimple = sampleAngularComponentSimpleFixture;
 exports.componentWithQuoteInUrls = componentWithQuoteInUrls;
@@ -15,3 +16,4 @@ exports.componentWithSpacing = componentWithSpacing;
 exports.componentWithSingleLineDecorator = componentWithSingleLineDecorator;
 exports.componentWithTemplateUrlEndingBySpace = componentWithTemplateUrlEndingBySpace;
 exports.componentWithTemplateUrlLast = componentWithTemplateUrlLast;
+exports.componentWithCommentAfterTemplateUrl = componentWithCommentAfterTemplateUrl;
