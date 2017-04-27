@@ -196,7 +196,7 @@ describe("loader", function() {
 
   it("Should convert templateUrl properties when they appear last.", function() {
 
-    loader.call({}, fixtures.componentWithTemplateUrlEndingBySpace)
+    loader.call({}, fixtures.componentWithTemplateUrlLast)
       .should
       .be
       .eql(`
@@ -204,8 +204,8 @@ describe("loader", function() {
 
   @Component({
     selector: 'test-component',
-    template: require('./some/path/to/file.html'), 
-    styles: [require('./app/css/styles.css')] 
+    styles: [require('./app/css/styles.css')],
+    template: require('./some/path/to/file.html')
   })
   export class TestComponent {}
 `
