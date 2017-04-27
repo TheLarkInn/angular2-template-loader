@@ -212,7 +212,7 @@ describe("loader", function() {
 
   });
 
-  it("Should convert templateUrl properties there is a comment after them.", function() {
+  it("Should convert templateUrl properties when there is a comment after them.", function() {
 
     loader.call({}, fixtures.componentWithCommentAfterTemplateUrl)
       .should
@@ -230,4 +230,26 @@ describe("loader", function() {
 
   });
 
+  it("Should convert templateUrl properties when there is a comment between decorator and class.", function() {
+
+    loader.call({}, fixtures.componentWithCommentBetweenDecoratorAndClass)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector: 'test-component',
+    template: require('./some/path/to/file.html'),
+    styles: [require('./app/css/styles.css')]
+  })
+
+  /*  
+   * Comment
+   */
+  export class TestComponent  { }
+`
+      )
+
+  });
 });
