@@ -5,6 +5,7 @@ var componentWithoutRelPeriodSlash = require('./component_without_relative_perio
 var componentWithSpacing = require('./component_with_spacing.js');
 var componentWithSingleLineDecorator = require('./component_with_single_line_decorator.js');
 var componentWithTemplateUrlEndingBySpace = require('./component_with_template_url_ending_by_space.js');
+var componentWithTemplateLiterals = require('./component_with_template_literals.js');
 
 exports.simpleAngularTestComponentFileStringSimple = sampleAngularComponentSimpleFixture;
 exports.componentWithQuoteInUrls = componentWithQuoteInUrls;
@@ -13,3 +14,4 @@ exports.componentWithoutRelPeriodSlash = componentWithoutRelPeriodSlash;
 exports.componentWithSpacing = componentWithSpacing;
 exports.componentWithSingleLineDecorator = componentWithSingleLineDecorator;
 exports.componentWithTemplateUrlEndingBySpace = componentWithTemplateUrlEndingBySpace;
+exports.componentWithTemplateLiterals = componentWithTemplateLiterals;
