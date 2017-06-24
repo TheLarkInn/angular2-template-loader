@@ -35,6 +35,7 @@
     "should": "^9.0.0"
   },
   "dependencies": {
-    "loader-utils": "^0.2.15"
+    "loader-utils": "^0.2.15",
+    "typescript": "^2.3.4"
   }
 }
