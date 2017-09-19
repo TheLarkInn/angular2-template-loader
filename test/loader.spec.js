@@ -95,6 +95,23 @@ describe("loader", function() {
       );
   });
 
+  it("Should not handle the absense of proper relative path notation if configured", function() {
+    loader.call({query: '?keepNonRelative=true'}, fixtures.componentWithoutRelPeriodSlash)
+      .should
+      .be
+      .eql(`
+  import {Component} from '@angular/core';
+
+  @Component({
+    selector: 'test-component',
+    template: require('file.html'),
+    styles: [require('styles.css')]
+  })
+  export class TestComponent {}
+`
+      );
+  });
+
   it("Should convert html and style file strings to require()s regardless of spacing", function(){
 
     loader.call({}, fixtures.componentWithSpacing)

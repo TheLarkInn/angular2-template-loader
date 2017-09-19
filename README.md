@@ -79,6 +79,7 @@ export class AwesomeButtonComponent { }
 ### How does it work
 The `angular2-template-loader` searches for `templateUrl` and `styleUrls` declarations inside of the Angular 2 Component metadata and replaces the paths with the corresponding `require` statement.
 If `keepUrl=true` is added to the loader's query string, `templateUrl` and `styleUrls` will not be replaced by `template` and `style` respectively so you can use a loader like `file-loader`.
+By default loader will convert non-relative paths (e.g. `templateUrl: 'file.html'`) to relative by prepending `./` if this behavior is not desired set `keepNonRelative=true`.
 
 The generated `require` statements will be handled by the given loader for `.html` and `.js` files.
 
