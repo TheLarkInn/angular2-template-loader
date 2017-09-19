@@ -18,7 +18,7 @@ function replaceStringsWithRequires(string) {
 module.exports = function(source, sourcemap) {
 
   var config = {};
-  var query = loaderUtils.parseQuery(this.query);
+  var query = loaderUtils.getOptions(this);
   var styleProperty = 'styles';
   var templateProperty = 'template';
 
