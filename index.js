@@ -18,23 +18,16 @@ function replaceStringsWithRequires(string) {
 module.exports = function(source, sourcemap) {
 
   var config = {};
-  var query = loaderUtils.parseQuery(this.query);
+  Object.assign(config, loaderUtils.getOptions(this));
   var styleProperty = 'styles';
   var templateProperty = 'template';
-
-  if (this.options != null) {
-    Object.assign(config, this.options['angular2TemplateLoader']);
-  }
-
-  Object.assign(config, query);
 
   if (config.keepUrl === true) {
       styleProperty = 'styleUrls';
       templateProperty = 'templateUrl';
   }
-
-    // Not cacheable during unit tests;
-  this.cacheable && this.cacheable();
+  
+  this.cacheable();
 
   var newSource = source.replace(templateUrlRegex, function (match, url) {
                  // replace: templateUrl: './path/to/template.html'

@@ -29,12 +29,12 @@
   },
   "homepage": "https://github.com/TheLarkInn/angular2-template-loader#readme",
   "devDependencies": {
-    "codecov": "^1.0.1",
-    "istanbul": "^0.4.3",
-    "mocha": "^2.5.3",
-    "should": "^9.0.0"
+    "codecov": "^3.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.0.4",
+    "should": "^13.2.1"
   },
   "dependencies": {
-    "loader-utils": "^0.2.15"
+    "loader-utils": "^1.1.0"
   }
 }
