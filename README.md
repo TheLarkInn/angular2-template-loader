@@ -60,8 +60,8 @@ module: {
 ```js
 @Component({
   selector: 'awesome-button',
-  template: 'button.template.html',
-  styles: ['button.style.css']
+  templateUrl: 'button.template.html',
+  styleUrls: ['button.style.css']
 })
 export class AwesomeButtonComponent { }
 ```
